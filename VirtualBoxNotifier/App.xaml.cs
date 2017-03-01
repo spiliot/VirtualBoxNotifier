@@ -19,7 +19,7 @@ namespace VirtualBoxNotifier
     {
         static IVirtualBoxClient vboxClient = new VirtualBoxClient();
         static int ActiveVMs = 0;
-        static PowerLineStatus PowerMode = PowerLineStatus.Unknown;
+        static System.Windows.Forms.PowerLineStatus PowerMode = System.Windows.Forms.PowerLineStatus.Unknown;
 
         NotifyIcon notifyIcon = new NotifyIcon();
 
@@ -74,7 +74,7 @@ namespace VirtualBoxNotifier
 
             PowerMode = SystemInformation.PowerStatus.PowerLineStatus;
 
-            if (PowerMode == PowerLineStatus.Offline && ActiveVMs > 0)
+            if (PowerMode == System.Windows.Forms.PowerLineStatus.Offline && ActiveVMs > 0)
             {
                 NotifyActiveVMsOnBattery();
             }
