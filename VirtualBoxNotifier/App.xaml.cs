@@ -33,6 +33,7 @@ namespace VirtualBoxNotifier
             notifyIcon.Text = CreateMessage(ActiveVMs);
 
             PowerMode = SystemInformation.PowerStatus.PowerLineStatus;
+            NotifyIfActiveVMsOnBattery();
         }
 
         private void CreateNotifyIcon()
@@ -74,14 +75,13 @@ namespace VirtualBoxNotifier
 
             PowerMode = SystemInformation.PowerStatus.PowerLineStatus;
 
-            if (PowerMode == System.Windows.Forms.PowerLineStatus.Offline && ActiveVMs > 0)
-            {
-                NotifyActiveVMsOnBattery();
-            }
+            NotifyIfActiveVMsOnBattery();
         }
 
-        private void NotifyActiveVMsOnBattery()
+        private void NotifyIfActiveVMsOnBattery()
         {
+            if (PowerMode != System.Windows.Forms.PowerLineStatus.Offline || ActiveVMs == 0) return;
+
             string message = "You're on battery and have " + CreateMessage(ActiveVMs);
             notifyIcon.ShowBalloonTip(5000, "VirtualBoxNotifier", message, ToolTipIcon.Warning);
         }
